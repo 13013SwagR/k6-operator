@@ -141,6 +141,7 @@ func (in *K6Spec) DeepCopyInto(out *K6Spec) {
 		*out = make([]v1.ContainerPort, len(*in))
 		copy(*out, *in)
 	}
+	in.Initializer.DeepCopyInto(&out.Initializer)
 	in.Starter.DeepCopyInto(&out.Starter)
 	in.Runner.DeepCopyInto(&out.Runner)
 	out.Scuttle = in.Scuttle
@@ -212,6 +213,13 @@ func (in *Pod) DeepCopyInto(out *Pod) {
 		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
 			(*out)[key] = val
+		}
+	}
+	if in.Tolerations != nil {
+		in, out := &in.Tolerations, &out.Tolerations
+		*out = make([]v1.Toleration, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	in.Resources.DeepCopyInto(&out.Resources)
