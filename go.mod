@@ -1,4 +1,4 @@
-module github.com/grafana/k6-operator
+module github.com/13013SwagR/k6-operator
 
 go 1.17
 
